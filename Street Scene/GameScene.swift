@@ -9,34 +9,38 @@
 import SpriteKit
 
 class GameScene: SKScene {
+    
+    var generators: [Generator] = []
+    
     override func didMoveToView(view: SKView) {
-        /* Setup your scene here */
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Hello, World!";
-        myLabel.fontSize = 45;
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame));
-        
-        self.addChild(myLabel)
+        generators.append(BuildingGenerator(scene: self))
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-       /* Called when a touch begins */
+    //MARK: - Scroll Nodes in View
+    
+    var previousPosition: CGPoint!
+    
+    override func touchesBegan(var touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.popFirst()!
+        previousPosition = touch.locationInNode(self)
+    }
+    
+    override func touchesMoved(var touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let touch = touches.popFirst()!
+        let currentPosition = touch.locationInNode(self)
         
-        for touch in touches {
-            let location = touch.locationInNode(self)
-            
-            let sprite = SKSpriteNode(imageNamed:"Spaceship")
-            
-            sprite.xScale = 0.5
-            sprite.yScale = 0.5
-            sprite.position = location
-            
-            let action = SKAction.rotateByAngle(CGFloat(M_PI), duration:1)
-            
-            sprite.runAction(SKAction.repeatActionForever(action))
-            
-            self.addChild(sprite)
+        //move everything
+        let delta = previousPosition - currentPosition
+        for node in self.children {
+            node.position = node.position - CGPointMake(delta.x, 0)
         }
+        for i in 0 ..< generators.count {
+            var generator = generators[i]
+            generator.nodesUpdated()
+            generators[i] = generator
+        }
+        
+        previousPosition = currentPosition
     }
    
     override func update(currentTime: CFTimeInterval) {
