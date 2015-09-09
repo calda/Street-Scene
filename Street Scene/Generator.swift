@@ -16,14 +16,17 @@ protocol Generator {
     var screenWidth: CGFloat { get }
     var screenHeight: CGFloat { get }
     var yForNewNode: CGFloat { get }
+    var zPosition: Int { get }
     
     //to be customized on each generator
     var minimumSpacing: CGFloat { get }
     var maximumSpacing: CGFloat { get }
     
+    var edgeBufferWidth: CGFloat { get }
+    
     mutating func nodesUpdated()
     mutating func generateNewNode(atFront atFront: Bool)
-    func getNewNode() -> SKSpriteNode
+    func getNewNode() -> (node: SKSpriteNode, aspectRatio: CGFloat)
     mutating func removeNode(node: SKSpriteNode)
     
     func borderOfGroup() -> (left: (position: CGFloat, node: SKSpriteNode?), right: (position: CGFloat, node: SKSpriteNode?))
@@ -31,6 +34,10 @@ protocol Generator {
 }
 
 extension Generator {
+    
+    var edgeBufferWidth: CGFloat {
+        return 500.0
+    }
     
     var screenWidth: CGFloat {
         return UIScreen.mainScreen().bounds.width * UIScreen.mainScreen().scale
@@ -68,12 +75,13 @@ extension Generator {
         if right.position < screenWidth + 100 { generateNewNode(atFront: true) }
         
         //check for deleting old nodes
-        if let leftNode = left.node where left.position < -500 { removeNode(leftNode) }
-        if let rightNode = right.node where right.position > screenWidth + 500 { removeNode(rightNode) }
+        if let leftNode = left.node where left.position < -edgeBufferWidth { removeNode(leftNode) }
+        if let rightNode = right.node where right.position > screenWidth + edgeBufferWidth { removeNode(rightNode) }
     }
     
     mutating func generateNewNode(atFront atFront: Bool) {
-        let size = CGSizeMake(screenHeight * 0.55, screenHeight)
+        let (node, aspectRatio) = getNewNode()
+        let size = CGSizeMake(screenHeight * aspectRatio, screenHeight)
         let (left, right) = borderOfGroup()
         let position: CGFloat
         
@@ -84,7 +92,7 @@ extension Generator {
             position = (left.position - size.width) - getSpacingForNode()
         }
         
-        addNewNode(CGPointMake(position, yForNewNode), size: size)
+        addNode(node, position: CGPointMake(position, yForNewNode), size: size)
     }
     
     func getSpacingForNode() -> CGFloat {
@@ -96,8 +104,8 @@ extension Generator {
         return CGFloat(random)
     }
     
-    mutating func addNewNode(position: CGPoint, size: CGSize) {
-        let node = getNewNode()
+    mutating func addNode(node: SKSpriteNode, position: CGPoint, size: CGSize) {
+        node.zPosition = CGFloat(self.zPosition)
         node.resize(size)
         node.moveTo(position)
         nodes.append(node)
@@ -107,9 +115,9 @@ extension Generator {
     mutating func removeNode(node: SKSpriteNode) {
         for index in 0 ..< nodes.count {
             if nodes[index].name == node.name {
-                print("Removing \(node.name!) at \(index) (count is currently \(nodes.count))")
+                //print("Removing \(node.name!) at \(index) (count is currently \(nodes.count))")
                 nodes.removeAtIndex(index)
-                print("(count is currently \(nodes.count))")
+                //print("(count is currently \(nodes.count))")
                 break
             }
         }

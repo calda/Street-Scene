@@ -9,23 +9,33 @@
 import Foundation
 import SpriteKit
 
-struct BuildingGenerator : Generator {
+struct PersonGenerator : Generator {
     
     var nodes: [SKSpriteNode] = []
     var owningScene: SKScene
     var yForNewNode: CGFloat = 0.0
-    var zPosition: Int
+    var peoplePictures: [String] = []
+    var zPosition: Int = 1
     
     var maximumSpacing: CGFloat {
-        return -20.0
+        return 50.0
     }
     var minimumSpacing: CGFloat {
-        return -20.0
+        return -100.0
     }
     
     init(scene: SKScene, zPosition: Int) {
         owningScene = scene
         self.zPosition = zPosition
+        
+        //get all people image names
+        let files = try! NSFileManager.defaultManager().contentsOfDirectoryAtPath(NSBundle.mainBundle().resourcePath!)
+        for file in files {
+            print(file)
+            if file.hasPrefix("person-") {
+                peoplePictures.append(file)
+            }
+        }
         
         for _ in 0...5 {
             nodesUpdated()
@@ -33,11 +43,12 @@ struct BuildingGenerator : Generator {
     }
     
     func getNewNode() -> (node: SKSpriteNode, aspectRatio: CGFloat) {
-        let number = randomBetween(1, 7)
-        let imageName = "building-base-colored\(number)"
+        let number = randomBetween(0, peoplePictures.count - 1)
+        let imageName = peoplePictures[number]
         let node = SKSpriteNode(imageNamed: imageName)
         node.name = "\(random())"
-        return (node, 0.55)
+        print(imageName)
+        return (node, 0.2694)
     }
     
 }
