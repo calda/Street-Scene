@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2EEDA8401B9CBFA600E4C920"
-               BuildableName = "Street Scene.app"
-               BlueprintName = "Street Scene"
+               BuildableName = "Word World Street.app"
+               BlueprintName = "Word World Street"
                ReferencedContainer = "container:Street Scene.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2EEDA8401B9CBFA600E4C920"
-            BuildableName = "Street Scene.app"
-            BlueprintName = "Street Scene"
+            BuildableName = "Word World Street.app"
+            BlueprintName = "Word World Street"
             ReferencedContainer = "container:Street Scene.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2EEDA8401B9CBFA600E4C920"
-            BuildableName = "Street Scene.app"
-            BlueprintName = "Street Scene"
+            BuildableName = "Word World Street.app"
+            BlueprintName = "Word World Street"
             ReferencedContainer = "container:Street Scene.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +75,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2EEDA8401B9CBFA600E4C920"
-            BuildableName = "Street Scene.app"
-            BlueprintName = "Street Scene"
+            BuildableName = "Word World Street.app"
+            BlueprintName = "Word World Street"
             ReferencedContainer = "container:Street Scene.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
