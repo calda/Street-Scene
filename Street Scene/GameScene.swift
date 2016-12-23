@@ -12,7 +12,7 @@ class GameScene: SKScene {
     
     var generators: [Generator] = []
     
-    override func didMoveToView(view: SKView) {
+    override func didMove(to view: SKView) {
         generators.append(BuildingGenerator(scene: self, zPosition: 0))
         generators.append(PersonGenerator(scene: self, zPosition: 1))
         generators.append(VehicleGenerator(scene: self, zPosition: 2, withPrefix: "vehicle-left-"))
@@ -23,24 +23,26 @@ class GameScene: SKScene {
     
     var previousPosition: CGPoint!
     
-    override func touchesBegan(var touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        var touches = touches
         let touch = touches.popFirst()!
-        previousPosition = touch.locationInNode(self)
+        previousPosition = touch.location(in: self)
     }
     
-    override func touchesMoved(var touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        var touches = touches
         let touch = touches.popFirst()!
-        let currentPosition = touch.locationInNode(self)
+        let currentPosition = touch.location(in: self)
         
         //move everything
         let delta = previousPosition - currentPosition
         for node in self.children {
-            node.position = node.position - CGPointMake(delta.x, 0)
+            node.position = node.position - CGPoint(x: delta.x, y: 0)
         }
         previousPosition = currentPosition
     }
    
-    override func update(currentTime: CFTimeInterval) {
+    override func update(_ currentTime: TimeInterval) {
         for i in 0 ..< generators.count {
             var generator = generators[i]
             generator.nodesUpdated()

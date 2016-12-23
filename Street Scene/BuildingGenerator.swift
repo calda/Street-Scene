@@ -36,7 +36,7 @@ struct BuildingGenerator : Generator {
         let number = randomBetween(1, 7)
         let imageName = "building-base-colored\(number)"
         let node = SKSpriteNode(imageNamed: imageName)
-        node.name = "\(random())"
+        node.name = "\(arc4random())"
         return (node, 0.55)
     }
     

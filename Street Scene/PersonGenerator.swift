@@ -29,7 +29,7 @@ struct PersonGenerator : Generator {
         self.zPosition = zPosition
         
         //get all people image names
-        let files = try! NSFileManager.defaultManager().contentsOfDirectoryAtPath(NSBundle.mainBundle().resourcePath!)
+        let files = try! FileManager.default.contentsOfDirectory(atPath: Bundle.main.resourcePath!)
         for file in files {
             print(file)
             if file.hasPrefix("person-") {
@@ -46,7 +46,7 @@ struct PersonGenerator : Generator {
         let number = randomBetween(0, peoplePictures.count - 1)
         let imageName = peoplePictures[number]
         let node = SKSpriteNode(imageNamed: imageName)
-        node.name = "\(random())"
+        node.name = "\(arc4random())"
         print(imageName)
         return (node, 0.2694)
     }

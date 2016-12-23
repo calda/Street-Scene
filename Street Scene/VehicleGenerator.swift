@@ -34,7 +34,7 @@ struct VehicleGenerator : Generator {
         self.zPosition = zPosition
         
         //get all people image names
-        let files = try! NSFileManager.defaultManager().contentsOfDirectoryAtPath(NSBundle.mainBundle().resourcePath!)
+        let files = try! FileManager.default.contentsOfDirectory(atPath: Bundle.main.resourcePath!)
         for file in files {
             print(file)
             if file.hasPrefix(imagePrefix) {
@@ -56,7 +56,7 @@ struct VehicleGenerator : Generator {
         let aspect = size.width / size.height
         
         let node = SKSpriteNode(imageNamed: imageName)
-        node.name = "\(random())"
+        node.name = "\(arc4random())"
         return (node, aspect)
     }
     

@@ -769,6 +769,7 @@
 					2EEDA8401B9CBFA600E4C920 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = CT648UDKHF;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -1139,6 +1140,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hearatale.word-word.street";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1152,6 +1154,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hearatale.word-word.street";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
